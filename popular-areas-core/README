@@ -1,0 +1,18 @@
+Build with Maven.
+To run the producer of rides, do
+`java -cp target/popular-areas-core-bundled-0.1.jar xyz.akumano.kafka.RawRideProducer`.
+
+Notes:
+
+The result of a second refactoring attempt at beam-popular-areas.
+It avoids most of the boilerplate code in deserializers of types.
+Base classes are AvroSerializable, AvroUtils (schema and record injection), AvroSerializer, and AvroDeserializer.
+Would be nice if:
+- the static members---avroUtils, Deserializer, and Serializer---could be moved to AvroSerializable.
+    That would require uses of reflection.
+- the boilderplate code in `fieldsMap` and `Deserializer::recordToType` were removed. This would also require reflection.
+The latter can be achieved. To do so, extend types by org.apache.avro.specific.SpecificRecordBase and use
+    com.twitter.bijection.avro.AvroCodecs.SpecificAvroCodecs to go between bytes and an instance of the type.
+
+Another solution is to use double dispatch (using the visitor pattern).
+

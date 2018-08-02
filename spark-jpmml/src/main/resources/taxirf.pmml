@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_3" version="4.3">
+    <Header>
+        <Application name="JPMML-SparkML" version="1.4.1"/>
+        <Timestamp>2018-04-18T19:20:47Z</Timestamp>
+    </Header>
+    <DataDictionary>
+        <DataField name="zip" optype="categorical" dataType="integer">
+            <Value value="10119"/>
+            <Value value="10003"/>
+            <Value value="10012"/>
+            <Value value="10014"/>
+            <Value value="10020"/>
+            <Value value="10010"/>
+            <Value value="10022"/>
+            <Value value="10016"/>
+            <Value value="10023"/>
+            <Value value="10024"/>
+            <Value value="10028"/>
+            <Value value="10065"/>
+            <Value value="10021"/>
+            <Value value="10075"/>
+            <Value value="10036"/>
+            <Value value="10018"/>
+            <Value value="10011"/>
+            <Value value="10019"/>
+            <Value value="10128"/>
+            <Value value="11430"/>
+            <Value value="10009"/>
+            <Value value="10111"/>
+            <Value value="10025"/>
+            <Value value="10013"/>
+            <Value value="11371"/>
+            <Value value="10167"/>
+            <Value value="10173"/>
+            <Value value="10165"/>
+            <Value value="10154"/>
+            <Value value="11369"/>
+            <Value value="10001"/>
+            <Value value="10017"/>
+            <Value value="10007"/>
+            <Value value="10174"/>
+            <Value value="10278"/>
+            <Value value="10002"/>
+            <Value value="10168"/>
+            <Value value="10112"/>
+            <Value value="10004"/>
+            <Value value="11201"/>
+            <Value value="10282"/>
+            <Value value="10006"/>
+            <Value value="10038"/>
+            <Value value="11211"/>
+            <Value value="10026"/>
+            <Value value="11217"/>
+            <Value value="10069"/>
+            <Value value="10029"/>
+            <Value value="10199"/>
+            <Value value="10170"/>
+            <Value value="10115"/>
+            <Value value="10280"/>
+            <Value value="11106"/>
+            <Value value="11101"/>
+            <Value value="11222"/>
+            <Value value="11104"/>
+            <Value value="10044"/>
+            <Value value="11103"/>
+            <Value value="10035"/>
+            <Value value="11231"/>
+            <Value value="10103"/>
+            <Value value="10037"/>
+            <Value value="10027"/>
+            <Value value="11109"/>
+            <Value value="11215"/>
+            <Value value="11105"/>
+            <Value value="11205"/>
+            <Value value="11206"/>
+            <Value value="11102"/>
+            <Value value="10031"/>
+            <Value value="10005"/>
+            <Value value="10032"/>
+            <Value value="10030"/>
+            <Value value="10033"/>
+            <Value value="11370"/>
+            <Value value="11216"/>
+            <Value value="11226"/>
+            <Value value="11221"/>
+            <Value value="11225"/>
+            <Value value="11213"/>
+            <Value value="11377"/>
+            <Value value="11237"/>
+            <Value value="11232"/>
+            <Value value="11372"/>
+            <Value value="11218"/>
+            <Value value="11374"/>
+            <Value value="11373"/>
+            <Value value="10040"/>
+            <Value value="11238"/>
+            <Value value="11420"/>
+            <Value value="11436"/>
+            <Value value="10453"/>
+            <Value value="11415"/>
+            <Value value="10034"/>
+            <Value value="11207"/>
+            <Value value="10601"/>
+            <Value value="7114"/>
+            <Value value="7030"/>
+            <Value value="7302"/>
+            <Value value="11368"/>
+            <Value value="6878"/>
+            <Value value="11354"/>
+            <Value value="11375"/>
+            <Value value="7307"/>
+            <Value value="7086"/>
+            <Value value="11385"/>
+            <Value value="10462"/>
+            <Value value="11413"/>
+            <Value value="11378"/>
+            <Value value="7011"/>
+            <Value value="11212"/>
+            <Value value="7087"/>
+            <Value value="10039"/>
+        </DataField>
+        <DataField name="hour" optype="continuous" dataType="integer"/>
+        <DataField name="weekday" optype="continuous" dataType="integer"/>
+        <DataField name="count" optype="continuous" dataType="double"/>
+    </DataDictionary>
+    <MiningModel functionName="regression">
+        <MiningSchema>
+            <MiningField name="count" usageType="target"/>
+            <MiningField name="zip"/>
+            <MiningField name="weekday"/>
+            <MiningField name="hour"/>
+        </MiningSchema>
+        <Output>
+            <OutputField name="prediction" optype="continuous" dataType="double" feature="predictedValue"/>
+        </Output>
+        <Segmentation multipleModelMethod="average">
+            <Segment id="1">
+                <True/>
+                <TreeModel functionName="regression" splitCharacteristic="binarySplit">
+                    <MiningSchema>
+                        <MiningField name="zip"/>
+                        <MiningField name="hour"/>
+                        <MiningField name="weekday"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node>
+                            <SimplePredicate field="zip" operator="notEqual" value="10014"/>
+                            <Node>
+<SimplePredicate field="zip" operator="notEqual" value="10016"/>
+<Node score="1.9247287522603977">
+    <SimplePredicate field="zip" operator="notEqual" value="10119"/>
+</Node>
+<Node score="4.071895424836601">
+    <SimplePredicate field="zip" operator="equal" value="10119"/>
+</Node>
+                            </Node>
+                            <Node score="2.793388429752066">
+<SimplePredicate field="zip" operator="equal" value="10016"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="zip" operator="equal" value="10014"/>
+                            <Node>
+<SimplePredicate field="weekday" operator="lessOrEqual" value="3.5"/>
+<Node score="2.485294117647059">
+    <SimplePredicate field="hour" operator="lessOrEqual" value="22.5"/>
+</Node>
+<Node score="4.0">
+    <SimplePredicate field="hour" operator="greaterThan" value="22.5"/>
+</Node>
+                            </Node>
+                            <Node score="3.253968253968254">
+<SimplePredicate field="weekday" operator="greaterThan" value="3.5"/>
+                            </Node>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="2">
+                <True/>
+                <TreeModel functionName="regression" splitCharacteristic="binarySplit">
+                    <MiningSchema>
+                        <MiningField name="zip"/>
+                        <MiningField name="hour"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node>
+                            <SimplePredicate field="zip" operator="notEqual" value="10119"/>
+                            <Node>
+<SimplePredicate field="hour" operator="lessOrEqual" value="7.5"/>
+<Node score="1.55678391959799">
+    <SimplePredicate field="zip" operator="notEqual" value="10012"/>
+</Node>
+<Node score="3.6363636363636362">
+    <SimplePredicate field="zip" operator="equal" value="10012"/>
+</Node>
+                            </Node>
+                            <Node>
+<SimplePredicate field="hour" operator="greaterThan" value="7.5"/>
+<Node score="2.103235294117647">
+    <SimplePredicate field="zip" operator="notEqual" value="10023"/>
+</Node>
+<Node score="3.7373737373737375">
+    <SimplePredicate field="zip" operator="equal" value="10023"/>
+</Node>
+                            </Node>
+                        </Node>
+                        <Node score="3.9565217391304346">
+                            <SimplePredicate field="zip" operator="equal" value="10119"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+        </Segmentation>
+    </MiningModel>
+</PMML>
